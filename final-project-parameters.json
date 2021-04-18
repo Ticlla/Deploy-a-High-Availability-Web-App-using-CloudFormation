@@ -24,12 +24,11 @@
 		"ParameterValue": "10.0.3.0/24"
 	},
 	{
-		"ParameterKey": "InstanceSize",
+		"ParameterKey": "InstanceTypeParameter",
 		"ParameterValue": "t2.micro"
 	},
 	{
-		"ParameterKey": "InstanceImage",
+		"ParameterKey": "InstanceImageID",
 		"ParameterValue": "ami-003634241a8fcdec0"
 	}
-]
 ]

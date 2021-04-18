@@ -47,6 +47,11 @@ Parameters:
       - m1.large
       Description: Enter t2.micro, m1.small, or m1.large. Default is t2.micro.
 
+  InstanceImageID:
+      Type: String
+      Default: ami-003634241a8fcdec0
+      Description: Enter ami-003634241a8fcdec0 image id 
+
 
 Resources:
 
@@ -294,14 +299,14 @@ Resources:
           sudo apt-get install apache2 -y
           apt-get install unzip awscli -y
           cd /var/www/html
-          aws s3 cp s3://mybucket-udagram/index.zip .
+          aws s3 cp s3://mybucket-udagram/index.zip .   # We pull code from S3 it can be changed to Git, first set up git and then pull repository
           unzip -o index.zip
           systemctl start apache2.service
-      ImageId: ami-003634241a8fcdec0
+      ImageId: !Ref InstanceImageID
       IamInstanceProfile: !Ref S3GetInstanceProfile #The mechanism we use for EC2 to be able to pull form S3
       SecurityGroups:
       - Ref: WebServerSecurityGroup
-      InstanceType: t2.micro
+      InstanceType: !Ref InstanceTypeParameter
       BlockDeviceMappings:
       - DeviceName: "/dev/sdk"
         Ebs:
