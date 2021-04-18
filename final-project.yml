@@ -38,6 +38,14 @@ Parameters:
       Type: String
       Default: 10.0.3.0/24
 
+  InstanceTypeParameter:
+      Type: String
+      Default: t2.micro
+      AllowedValues:
+      - t2.micro
+      - m1.small
+      - m1.large
+      Description: Enter t2.micro, m1.small, or m1.large. Default is t2.micro.
 
 
 Resources:
@@ -290,11 +298,10 @@ Resources:
           unzip -o index.zip
           systemctl start apache2.service
       ImageId: ami-003634241a8fcdec0
-      KeyName: awskey
       IamInstanceProfile: !Ref S3GetInstanceProfile #The mechanism we use for EC2 to be able to pull form S3
       SecurityGroups:
       - Ref: WebServerSecurityGroup
-      InstanceType: t3.micro
+      InstanceType: t2.micro
       BlockDeviceMappings:
       - DeviceName: "/dev/sdk"
         Ebs:
@@ -307,8 +314,8 @@ Resources:
       - !Ref PrivateSubnet2
       LaunchConfigurationName:
         !Ref WebAppLaunchConfig
-      MinSize: '3'
-      MaxSize: '5'
+      MinSize: '1'
+      MaxSize: '3'
       TargetGroupARNs:
       - !Ref WebAppTargetGroup
   WebAppLoadBalancer:
